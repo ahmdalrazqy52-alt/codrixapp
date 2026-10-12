@@ -1,0 +1,38 @@
+'use client'
+
+import { useState } from 'react'
+import { BarChart3, Bell, Check, ChevronLeft, FolderKanban, LayoutDashboard, LifeBuoy, LogOut, Menu, MessageSquare, MoreHorizontal, Plus, Search, Settings, ShieldCheck, Sparkles, Users, WalletCards, X } from 'lucide-react'
+
+const sections = [
+  ['overview', 'نظرة عامة', LayoutDashboard],
+  ['content', 'محتوى التطبيق', Sparkles],
+  ['services', 'الخدمات والأسعار', WalletCards],
+  ['projects', 'المشاريع', FolderKanban],
+  ['customers', 'العملاء', Users],
+  ['support', 'الدعم والتذاكر', LifeBuoy],
+  ['notifications', 'الإشعارات', Bell],
+  ['settings', 'إعدادات النظام', Settings],
+] as const
+
+export default function AdminPage() {
+  const [active, setActive] = useState('overview')
+  const [menu, setMenu] = useState(false)
+  const current = sections.find(([id]) => id === active)?.[1] ?? 'نظرة عامة'
+  return <main className="admin-shell" dir="rtl">
+    <header className="admin-topbar"><button className="admin-menu-btn" onClick={() => setMenu(true)} aria-label="فتح القائمة"><Menu /></button><div className="admin-brand"><img src="/codrix-symbol.png" alt="" /><div><strong>كودركس يمن</strong><small>لوحة الإدارة الخاصة</small></div></div><div className="admin-top-actions"><button aria-label="بحث"><Search /></button><button aria-label="الإشعارات"><Bell /><i /></button><div className="admin-user"><span>م</span><div><strong>المدير العام</strong><small>مدير النظام</small></div></div></div></header>
+    {menu && <><button className="admin-overlay" onClick={() => setMenu(false)} aria-label="إغلاق القائمة" /><aside className="admin-drawer"><button className="drawer-close" onClick={() => setMenu(false)}><X /></button><NavItems active={active} setActive={(id) => { setActive(id); setMenu(false) }} /></aside></>}
+    <div className="admin-layout"><aside className="admin-sidebar"><div className="sidebar-label">الإدارة</div><NavItems active={active} setActive={setActive} /><div className="sidebar-bottom"><button><ShieldCheck /><span>الأمان والصلاحيات</span></button><button><LogOut /><span>تسجيل الخروج</span></button></div></aside><section className="admin-main"><div className="admin-heading"><div><span className="admin-kicker">مساحة محمية · للمديرين فقط</span><h1>{current}</h1><p>تحكم كامل في محتوى تطبيق كودركس يمن وتجربة العملاء.</p></div><button className="admin-primary"><Plus /> إضافة جديد</button></div>{active === 'overview' && <Overview />}{active === 'content' && <ContentManager />}{active === 'services' && <ServicesManager />}{active === 'projects' && <ProjectsManager />}{active === 'customers' && <CustomersManager />}{active === 'support' && <SupportManager />}{active === 'notifications' && <NotificationsManager />}{active === 'settings' && <SettingsManager />}</section></div>
+  </main>
+}
+
+function NavItems({ active, setActive }: { active: string; setActive: (id: string) => void }) { return <nav className="admin-nav">{sections.map(([id, label, Icon]) => <button key={id} className={active === id ? 'active' : ''} onClick={() => setActive(id)}><Icon /><span>{label}</span><ChevronLeft /></button>)}</nav> }
+function Overview() { return <div className="admin-content"><div className="admin-metrics"><Metric icon={Users} label="إجمالي العملاء" value="١٨٤" change="+١٢٪ هذا الشهر" /><Metric icon={FolderKanban} label="المشاريع النشطة" value="٣٦" change="+٤ مشاريع جديدة" /><Metric icon={WalletCards} label="طلبات الخدمة" value="٢٧" change="٨ بانتظار المراجعة" /><Metric icon={BarChart3} label="الدخل الشهري" value="$12,840" change="+١٨٪ مقارنة بالشهر السابق" /></div><div className="admin-panels"><div className="admin-panel chart-panel"><div className="panel-head"><div><h2>نشاط المنصة</h2><span>المشاريع والطلبات خلال آخر ٦ أشهر</span></div><button>آخر ٦ أشهر <ChevronLeft /></button></div><div className="large-chart"><div className="chart-grid"><i /><i /><i /><i /></div><div className="chart-line" /></div><div className="chart-months"><span>مايو</span><span>يونيو</span><span>يوليو</span><span>أغسطس</span><span>سبتمبر</span><span>أكتوبر</span></div></div><div className="admin-panel activity-panel"><div className="panel-head"><h2>آخر الأنشطة</h2><MoreHorizontal /></div>{['تم إنشاء مشروع جديد بواسطة أحمد محمد','تم تحديث حالة مشروع منصة كليك','تذكرة دعم جديدة بانتظار الرد','تم إصدار فاتورة INV-003'].map((x, i) => <div className="activity-row" key={x}><span className={'activity-icon a'+i}><Check /></span><div><strong>{x}</strong><small>منذ {i + 1} ساعات</small></div></div>)}</div></div></div> }
+function Metric({ icon: Icon, label, value, change }: { icon: typeof Users; label: string; value: string; change: string }) { return <article className="metric-card"><span className="metric-icon"><Icon /></span><small>{label}</small><strong>{value}</strong><em>{change}</em></article> }
+function ContentManager() { return <Manager title="محتوى التطبيق" description="إدارة النصوص والواجهات والبنرات الظاهرة للعملاء." rows={['البنر الرئيسي للصفحة الرئيسية','رسالة الترحيب','قسم خدماتنا','قسم المشاريع الحالية','روابط التواصل والدعم']} /> }
+function ServicesManager() { return <Manager title="الخدمات والأسعار" description="أضف الخدمات وعدّل الوصف والأسعار وحالة الظهور." rows={['تطوير الأنظمة والبرمجيات','تطبيقات الجوال','المواقع والمنصات','الذكاء الاصطناعي','الأمن السيبراني','الاستضافة السحابية']} /> }
+function ProjectsManager() { return <Manager title="إدارة المشاريع" description="تابع المشاريع ومراحل التنفيذ والملفات والتحديثات." rows={['تطبيق متجر إلكتروني','منصة إدارة العملاء','موقع شركة تقنية','تطبيق وصلة']} /> }
+function CustomersManager() { return <Manager title="العملاء" description="إدارة الحسابات والصلاحيات وبيانات التواصل." rows={['محمد العريقي · ahmed@example.com','سارة محمد · sara@example.com','شركة كليك · info@click.com','متجر سلال · hello@salal.com']} /> }
+function SupportManager() { return <Manager title="الدعم والتذاكر" description="تابع تذاكر العملاء والمحادثات وحالات الحل." rows={['#CRX-1842 · طلب تطوير جديد',' #CRX-1720 · مشكلة تقنية',' #CRX-1605 · استفسار عام']} /> }
+function NotificationsManager() { return <Manager title="الإشعارات" description="أنشئ الإشعارات وأرسل التحديثات لفئات العملاء." rows={['إشعار تحديث مشروع','عرض خدمة جديد','تذكير بموعد التسليم','رسالة صيانة النظام']} /> }
+function SettingsManager() { return <Manager title="إعدادات النظام" description="الهوية، اللغات، الصلاحيات، النسخ الاحتياطي وإعدادات التطبيق." rows={['هوية كودركس والألوان','الحسابات والصلاحيات','اللغة والمنطقة الزمنية','الإشعارات والبريد','النسخ الاحتياطي']} /> }
+function Manager({ title, description, rows }: { title: string; description: string; rows: string[] }) { return <div className="manager-page"><div className="manager-summary"><div><span className="admin-kicker">إدارة مركزية</span><h2>{title}</h2><p>{description}</p></div><button className="admin-primary"><Plus /> إضافة</button></div><div className="manager-toolbar"><div className="manager-search"><Search /><input placeholder="بحث في هذا القسم..." /></div><button className="filter-btn">تصفية <ChevronLeft /></button></div><div className="manager-list">{rows.map((row, i) => <div className="manager-row" key={row}><span className="row-number">{String(i + 1).padStart(2, '0')}</span><div><strong>{row}</strong><small>{i % 2 ? 'نشط · آخر تحديث منذ يومين' : 'نشط · آخر تحديث منذ ساعتين'}</small></div><button className="row-edit">تعديل</button><button className="row-more" aria-label="المزيد"><MoreHorizontal /></button></div>)}</div></div> }
