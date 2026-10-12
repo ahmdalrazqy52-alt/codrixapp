@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { InstallPrompt } from './install-prompt'
 import {
   Activity,
   ArrowUpLeft,
@@ -59,6 +60,7 @@ export default function Page() {
 
   return (
     <main dir="rtl" className="app-shell">
+      <InstallPrompt />
       <aside className={`sidebar ${mobileOpen ? 'sidebar-open' : ''}`}>
         <div className="brand-row">
           <div className="brand-mark"><span>∞</span></div>
