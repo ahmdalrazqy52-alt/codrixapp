@@ -1,0 +1,12 @@
+{
+  "name": "كودركس يمن",
+  "short_name": "كودركس",
+  "description": "منصة كودركس يمن للخدمات والطلبات الرقمية",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3f9ff",
+  "theme_color": "#087ee5",
+  "icons": [{"src":"/apple-icon.png","sizes":"180x180","type":"image/png"},{"src":"/icon.svg","sizes":"any","type":"image/svg+xml"}]
+}

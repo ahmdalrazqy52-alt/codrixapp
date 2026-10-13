@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: 'كودركس يمن | مساحة العميل',
   description: 'منصة كودركس يمن لإدارة المشاريع والخدمات الرقمية والذكاء الاصطناعي',
   generator: 'v0.app',
+  manifest: '/manifest.webmanifest',
   icons: {
     icon: [
       {
