@@ -36,7 +36,7 @@ export function InstallPrompt() {
 
   return (
     <aside className="install-prompt" aria-label="تثبيت تطبيق كودركس يمن">
-      <div className="install-prompt-icon"><Download /></div>
+      <div className="install-prompt-icon"><img src="/codrix-symbol.png" alt=""/><Download /></div>
       <div className="install-prompt-copy"><strong>حمّل تطبيق كودركس يمن</strong><span>سيتم تحميل التطبيق كاملًا ثم تثبيته على جهازك</span></div>
       <button className="install-action" onClick={install}>تحميل التطبيق</button>
       <button className="install-dismiss" onClick={() => setVisible(false)} aria-label="إغلاق"><X /></button>

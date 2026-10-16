@@ -8,5 +8,5 @@
   "display": "standalone",
   "background_color": "#f3f9ff",
   "theme_color": "#087ee5",
-  "icons": [{"src":"/codrix-symbol.png","sizes":"512x512","type":"image/png"},{"src":"/apple-icon.png","sizes":"180x180","type":"image/png"}]
+  "icons": [{"src":"/codrix-symbol.png","sizes":"1024x1024","type":"image/png","purpose":"any maskable"},{"src":"/codrix-symbol.png","sizes":"512x512","type":"image/png","purpose":"any"}]
 }
