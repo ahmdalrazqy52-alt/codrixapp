@@ -1,6 +1,9 @@
 {
   "name": "كودركس يمن",
   "short_name": "كودركس",
+  "id": "/",
+  "scope": "/",
+  "orientation": "portrait-primary",
   "description": "منصة كودركس يمن للخدمات والطلبات الرقمية",
   "lang": "ar",
   "dir": "rtl",

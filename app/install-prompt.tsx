@@ -20,7 +20,8 @@ export function InstallPrompt() {
     }
 
     window.addEventListener('beforeinstallprompt', handleInstallAvailable)
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(() => undefined)
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => undefined)
+    window.addEventListener('appinstalled', () => { setVisible(false); setInstallEvent(null) })
 
     return () => window.removeEventListener('beforeinstallprompt', handleInstallAvailable)
   }, [])
