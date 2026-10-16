@@ -9,11 +9,11 @@ export const metadata: Metadata = {
   manifest: '/manifest.webmanifest',
   icons: {
     icon: [
-      { url: '/codrix-symbol.png', type: 'image/png' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/codrix-favicon.png', type: 'image/png', sizes: '512x512' },
+      { url: '/codrix-app-icon.png', type: 'image/png', sizes: '1024x1024' },
     ],
-    apple: '/codrix-symbol.png',
-    shortcut: '/codrix-symbol.png',
+    apple: '/codrix-app-icon.png',
+    shortcut: '/codrix-favicon.png',
   },
 }
 
